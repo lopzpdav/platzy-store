@@ -15,6 +15,17 @@ export class AppController {
     return this.appService.getAdvertisement();
   }
 
+  //THERE IS A CONFLICT BETWEEN THIS ROUTE AND THE ONE BELOW
+  //TO MAKE IT WORK, WE NEED TO CHANGE THE ORDER OF THE ROUTES
+  //DYNAMIC ROUTES SHOULD BE AT THE END
+  //FOR THIS CASE ESPECIFICALLY, THE ROUTE /products/filter
+  //SHOULD BE BEFORE /products/:productId CAUSE SECOND IS DYNAMIC
+
+  @Get('/products/filter')
+  getProductsFilter() {
+    return 'Testing order for param vs path routes';
+  }
+
   @Get('/products/:productId')
   getProduct(@Param('productId') productId : string) {
     return 'Product '  + productId;
