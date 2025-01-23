@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -11,12 +11,18 @@ export class ProductsController {
 
   @Get('/filter')
   getProductsFilter() {
-    return 'Testing order for param vs path routes';
+    return {
+      message: 'Testing order for param vs path routes'
+    };
   }
 
   @Get('/:productId')
-  getProduct(@Param('productId') productId : string) {
-    return 'Product '  + productId;
+  getProduct(
+    @Param('productId') productId : string
+  ) {
+    return {
+      message: `Product ${productId}`
+    };
   }
 
   @Get()
@@ -25,7 +31,16 @@ export class ProductsController {
     @Query('offset') offset = 0,
     @Query('brand') brand : string
   ) {
-    return `Products: limit => ${limit} offset => ${offset} brand => ${brand}`;
+    return {
+      message: `Products: limit => ${limit} offset => ${offset} brand => ${brand}`
+    };
+
   }
 
+  @Post()
+  create(){
+    return {
+      message: 'Creating a product'
+    };
+  }
 }
